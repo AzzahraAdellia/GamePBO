@@ -94,3 +94,61 @@ function keyPressed() {
     loop();
   }
 }
+
+
+class Entity {
+  constructor(x, y, w, h) {
+    this.x = x;
+    this.y = y;
+    this.height = w;
+    this.width = h;
+    this.peluru = [];
+  }
+  
+  attack(){
+    let plr = new Peluru(player.x, player.y);
+    this.peluru.push(plr);
+  }
+  
+  moveRight(){
+    if(this.x < 600){    
+      this.x += 2;
+    }
+  }
+  moveLeft(){
+    if(this.x > 0){
+      this.x -= 2;
+    }
+  }
+  moveDown(){
+    if(this.y < 400){
+      this.y += 2;
+    }
+  }
+  moveUp(){
+    if(this.y > 0){
+      this.y -= 2;
+    }
+  }
+}
+
+class Hero extends Entity{
+  constructor(x, y, w, h) {
+    super(x, y, w, h);
+    this.life = 100;
+    this.score = 0;
+  }
+  
+  show(){
+    fill(255, 100, 20);
+    ellipse(this.x, this.y, this.width, this.height);
+    noFill();
+  }
+  
+  increaseScore(){
+    this.score +=1;
+  }
+  calculateLife(l){
+    this.life += l;
+  }
+}
