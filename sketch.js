@@ -196,3 +196,34 @@ class Peluru{
     noStroke();
   }
 }
+
+class Map{
+  constructor(width, height) {
+    this.width = width;
+    this.height = height;
+    this.enemy = [];
+  }
+  init(lev){
+    createCanvas(this.width, this.height);
+    for(let i = 0; i < 10 * lev; i++){
+      let yE = random(0, 400);
+      let xE = random(1600, 600);
+      let en = new Monster(xE, yE, 10, 10, 1);
+      this.enemy.push(en)
+    }
+  }
+}
+
+class Level{
+  constructor() {
+    this.currentLevel = 0;
+    this.latestLevel = 0;
+    this.maxLevel = 0;
+  }
+  setLevel(level){
+    this.currentLevel = level;
+  }
+  getCurentLevel(){
+    return this.currentLevel;
+  }
+}
