@@ -184,13 +184,14 @@ class Hero extends Entity{
   }
 }
 
-
-
-
-
-
-
-
+addLife(l){
+    if(this.life + l > 100){
+      this.life = 100;
+    }else{    
+      this.life += l; 
+    }
+  }
+}
 
 class Monster extends Entity {
   constructor(x, y, h, w) {
