@@ -101,18 +101,18 @@ function draw() {
   
 }
 
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
+}else{
+    background(220);
+    textSize(24);
+    stroke(255, 0, 0);
+    text('Game Over', 200, 200);
+    stroke(0, 0, 0);
+    text('Press enter to play', 200, 200 + 30);
+    text('Highest Level', 200, 200 + 60);
+    text(level.maxLevel, 200, 200 + 90);
+    textSize(12);
+  }
+}  
   
 function keyPressed() {
   if (keyCode === 32) {
