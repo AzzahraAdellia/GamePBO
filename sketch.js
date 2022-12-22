@@ -119,10 +119,10 @@ function keyPressed() {
     player.attack();
   } 
   if (keyCode === RETURN){
+    state = 1;
     level.setLevel(1);
     m.init(1);
     player.life = 100;
-    loop();
   }
 }
 
@@ -184,13 +184,21 @@ class Hero extends Entity{
   }
 }
 
+
+
+
+
+
+
+
+
 class Monster extends Entity {
   constructor(x, y, h, w) {
     super(x, y, h, w);
     this.life = 1;
     this.color = [random(0, 255), random(0, 255), random(0, 255)];
-    this.effect = random(0, 2);
-    this.type = 0;
+    this.effect = 0;
+    this.type = random(0, 2);
   }
   moveRandom() {
     let move = ['up', 'down'];
@@ -198,13 +206,15 @@ class Monster extends Entity {
   }
   show(){
     stroke(0);
-    if(this.effect === 1){    
-      fill(255, 255, 255);
-      rect(this.x, this.y, this.height);
+    if(this.effect === 1.5){  
+      this.effect = 1;
+      fill(0, 255, 0);
+      triangle(this.x, this.y, this.x+10, this.y-10, this.x+10, this.y+10);
       noFill()
+      
     }else{
       fill(0, 255, 0);
-      rect(this.x, this.y, this.height);
+      triangle(this.x, this.y, this.x+10, this.y-10, this.x+10, this.y+10);
       noFill()
     }
     noStroke();
@@ -218,11 +228,11 @@ class Peluru{
     this.y = y;
   }
   
-  show(){
+  show(s){
     stroke(255, 0, 0);
     fill(255, 0, 0);
     circle(this.x, this.y, 3);
-    this.x += 10;
+    this.x += s;
     noFill();
     noStroke();
   }
