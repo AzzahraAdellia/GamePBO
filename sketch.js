@@ -2,32 +2,43 @@ let player;
 let level;
 let m;
 
+let state = 0;
+
 function setup() {
   player = new Hero(10, 200, 20, 20);
+  level = new Level();
+  level.setLevel(1);
   m = new Map(600, 400);
   m.init(1);
-  level = new Level();
 }
-
+ 
 function draw() {
     
-  if(level.getCurentLevel() % 2 == 0){
+  if(state === 0){
     background(220);
-    stroke(0);
-    text(level.getCurentLevel(), 500, 70);
-  }else{
-    background(50);
-    stroke(255);
-    text(level.getCurentLevel(), 500, 70);
+    stroke(255, 0, 0);
+    text('Press enter to play', 250, 200 + 10);
   }
-  stroke(255, 0, 0);
-  text(player.life, 500, 50);
-  noStroke();
-  
+  else if(state === 1){
+    if(level.getCurentLevel() % 2 == 0){
+      background(220);
+      stroke(0);
+      text(level.getCurentLevel(), 500, 70);
+    }else{
+      background(50);
+      stroke(255);
+      text(level.getCurentLevel(), 500, 70);
+    }
+    stroke(255, 0, 0);
+    text(player.life, 500, 50);
+    text("Enemy left:", 500, 85);
+    text(m.enemy.length, 500, 100);
+    noStroke();
+
   player.show();
   
    for(let plr of player.peluru){
-     plr.show();
+     plr.show(10);
    }
   
    for(let en of m.enemy){
@@ -36,14 +47,21 @@ function draw() {
      if(dist(en.x, en.y, player.x, player.y) < 20){
        m.enemy.splice(m.enemy.indexOf(en), 1);
        player.calculateLife(-10);
+       
+       if(en.effect === 1){
+            player.addLife(10);
+          }else{
+            player.calculateLife(-10);
+          }
      }
    }
   if(player.life <= 0){
-    stroke(0, 0, 0);
-    text('Game Over', 300, 200);
-    text('Press enter to play', 300, 200 + 10);
-    noLoop();
-  }
+
+      if(level.maxLevel < level.getCurentLevel()){
+        level.maxLevel = level.getCurentLevel();
+      }
+      state = 2;
+    }
   
   for(let en of m.enemy){
     for(let plr of player.peluru){
@@ -83,6 +101,19 @@ function draw() {
   
 }
 
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
 function keyPressed() {
   if (keyCode === 32) {
     player.attack();
