@@ -48,6 +48,7 @@ function draw() {
        m.enemy.splice(m.enemy.indexOf(en), 1);
        player.calculateLife(-10);
        
+       
        if(en.effect === 1){
             player.addLife(10);
           }else{
@@ -66,6 +67,7 @@ function draw() {
   for(let en of m.enemy){
     for(let plr of player.peluru){
       if (dist(en.x, en.y, plr.x, plr.y) < 20){
+        
         m.enemy.splice(m.enemy.indexOf(en), 1);
         player.peluru.splice(player.peluru.indexOf(plr), 1);
         
@@ -82,6 +84,7 @@ function draw() {
   }
   
   if(m.enemy.length < 1){
+    level.latestLevel = level.getCurentLevel();
     level.setLevel(level.getCurentLevel() + 1);
     m.init(level.getCurentLevel());
   }
@@ -98,8 +101,6 @@ function draw() {
   if (keyIsDown(RIGHT_ARROW)) {
     player.moveRight();
   }
-  
-}
 
 }else{
     background(220);
@@ -182,8 +183,6 @@ class Hero extends Entity{
   calculateLife(l){
     this.life += l;
   }
-}
-
 addLife(l){
     if(this.life + l > 100){
       this.life = 100;
