@@ -18,6 +18,12 @@ function draw() {
     background(220);
     stroke(255, 0, 0);
     text('Press enter to play', 250, 200 + 10);
+    if (keyCode === RETURN){
+    state = 1;
+    level.setLevel(1);
+    m.init(1);
+    player.life = 100;
+  }
   }
   else if(state === 1){
     if(level.getCurentLevel() % 2 == 0){
@@ -52,7 +58,7 @@ function draw() {
        if(en.effect === 1){
             player.addLife(10);
           }else{
-            player.calculateLife(-10);
+            player.calculateLife(0);
           }
      }
    }
@@ -118,12 +124,6 @@ function draw() {
 function keyPressed() {
   if (keyCode === 32) {
     player.attack();
-  } 
-  if (keyCode === RETURN){
-    state = 1;
-    level.setLevel(1);
-    m.init(1);
-    player.life = 100;
   }
 }
 
